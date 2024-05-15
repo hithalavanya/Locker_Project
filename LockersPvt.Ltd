@@ -1,0 +1,130 @@
+package sampleprj;
+
+
+	import java.util.ArrayList;
+	import java.util.Collections;
+	import java.util.List;
+	import java.util.Scanner;
+
+	public class LockedMe {
+
+	    private static List<String> fileNames = new ArrayList<>();
+
+	    public static void main(String[] args) {
+	        displayWelcomeScreen();
+	        handleUserInput();
+	    }
+
+	    private static void displayWelcomeScreen() {
+	        System.out.println("Welcome to LockedMe.com");
+	        System.out.println("Developer: Your Name\n");
+
+	        System.out.println("User Interaction Options:");
+	        System.out.println("1. Display current file names in ascending order");
+	        System.out.println("2. File Operations");
+	        System.out.println("3. Close the application\n");
+	        System.out.print("Enter your choice: ");
+	    }
+
+	    private static void handleUserInput() {
+	        Scanner scanner = new Scanner(System.in);
+	        int choice = scanner.nextInt();
+
+	        switch (choice) {
+	            case 1:
+	                displayFileNames();
+	                break;
+	            case 2:
+	                displayFileOperations();
+	                break;
+	            case 3:
+	                System.out.println("Closing the application. Goodbye!");
+	                System.exit(0);
+	                break;
+	            default:
+	                System.out.println("Invalid choice. Please enter a valid option.");
+	                handleUserInput();
+	        }
+	    }
+
+	    private static void displayFileNames() {
+	        if (fileNames.isEmpty()) {
+	            System.out.println("No files found in the directory.");
+	        } else {
+	            Collections.sort(fileNames);
+	            System.out.println("Current file names in ascending order:");
+	            for (String fileName : fileNames) {
+	                System.out.println(fileName);
+	            }
+	        }
+	        handleUserInput();
+	    }
+
+	    private static void displayFileOperations() {
+	        System.out.println("File Operations:");
+	        System.out.println("1. Add a file");
+	        System.out.println("2. Delete a file");
+	        System.out.println("3. Search for a file");
+	        System.out.println("4. Back to main menu");
+
+	        Scanner scanner = new Scanner(System.in);
+	        int operationChoice = scanner.nextInt();
+
+	        switch (operationChoice) {
+	            case 1:
+	                addFile();
+	                break;
+	            case 2:
+	                deleteFile();
+	                break;
+	            case 3:
+	                searchFile();
+	                break;
+	            case 4:
+	                handleUserInput();
+	                break;
+	            default:
+	                System.out.println("Invalid choice. Please enter a valid option.");
+	                displayFileOperations();
+	        }
+	    }
+
+	    private static void addFile() {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter the file name to add: ");
+	        String fileName = scanner.next();
+	        fileNames.add(fileName);
+	        System.out.println("File added successfully.");
+	        displayFileOperations();
+	    }
+
+	    private static void deleteFile() {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter the file name to delete: ");
+	        String fileName = scanner.next();
+
+	        if (fileNames.contains(fileName)) {
+	            fileNames.remove(fileName);
+	            System.out.println("File deleted successfully.");
+	        } else {
+	            System.out.println("File not found. Deletion unsuccessful.");
+	        }
+	        displayFileOperations();
+	    }
+
+	    private static void searchFile() {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter the file name to search: ");
+	        String fileName = scanner.next();
+
+	        if (fileNames.contains(fileName)) {
+	            System.out.println("File found in the directory.");
+	        } else {
+	            System.out.println("File not found in the directory.");
+	        }
+	        displayFileOperations();
+	    }
+	}
+
+
+
